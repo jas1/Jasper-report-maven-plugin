@@ -28,7 +28,6 @@ import net.sf.jasperreports.engine.DefaultJasperReportsContext;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRPropertiesUtil;
 import net.sf.jasperreports.engine.design.JRCompiler;
-import net.sf.jasperreports.engine.design.JRJdtCompiler;
 import net.sf.jasperreports.engine.xml.JRReportSaxParserFactory;
 
 import org.apache.commons.lang.Validate;
@@ -60,7 +59,7 @@ public class JasperReporter extends AbstractMojo {
 	 * @parameter default-value="net.sf.jasperreports.engine.design.JRJdtCompiler"
 	 * @required
 	 */
-	private String compiler;
+	private String compiler = net.sf.jasperreports.engine.design.JRJdtCompiler.class.getName();
 
 	/**
 	 * This is where the .jasper files are written.
@@ -151,10 +150,6 @@ public class JasperReporter extends AbstractMojo {
 	public void execute() throws MojoExecutionException {
 		log = getLog();
 
-		if (verbose) {
-            logConfiguration(log);
-        }
-
 		checkOutDirWritable(outputDirectory);
 
 		SourceMapping mapping = new SuffixMapping(sourceFileExt, outputFileExt);
@@ -174,6 +169,11 @@ public class JasperReporter extends AbstractMojo {
             Thread.currentThread().setContextClassLoader(getClassLoader(classLoader));
             try {
                 configureJasper();
+
+				if (verbose) {
+					logConfiguration(log);
+				}
+
                 executeTasks(tasks);
             } finally {
                 if (classLoader != null) {
@@ -243,7 +243,7 @@ public class JasperReporter extends AbstractMojo {
 		DefaultJasperReportsContext jrContext = DefaultJasperReportsContext.getInstance();
 
         jrContext.setProperty(JRReportSaxParserFactory.COMPILER_XML_VALIDATION, String.valueOf(xmlValidation));
-		jrContext.setProperty(JRCompiler.COMPILER_PREFIX, compiler == null ? JRJdtCompiler.class.getName() : compiler);
+		jrContext.setProperty(JRCompiler.COMPILER_CLASS, compiler);
 		jrContext.setProperty(JRCompiler.COMPILER_KEEP_JAVA_FILE, Boolean.FALSE.toString());
 
 		if (additionalProperties != null) {
