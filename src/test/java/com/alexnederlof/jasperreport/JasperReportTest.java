@@ -31,7 +31,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 import org.codehaus.plexus.util.FileUtils;
 
-import com.google.common.io.NullOutputStream;
+import com.google.common.io.ByteStreams;
 
 /**
  * Test the report generation.
@@ -127,7 +127,7 @@ public class JasperReportTest extends AbstractMojoTestCase {
 		File file = new File(destinationFolder.getPath() + "/" + filename);
 		try {
 			JasperPrint print = JasperFillManager.fillReport(new FileInputStream(file), new HashMap<String, Object>());
-			JasperExportManager.exportReportToPdfStream(print, new NullOutputStream());
+			JasperExportManager.exportReportToPdfStream(print, ByteStreams.nullOutputStream());
 		}
 		catch (IOException e) {
 			fail("Unable to create exportfile: Errormessage:" + e.getMessage());
