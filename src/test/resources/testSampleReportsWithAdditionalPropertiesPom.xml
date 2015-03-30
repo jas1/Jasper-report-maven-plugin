@@ -28,7 +28,7 @@
                     <outputFileExt>.jasper</outputFileExt>
                     <sourceFileExt>.jrxml</sourceFileExt>
                     <sourceDirectory>target/test-classes/exampleFolders/sampleReports</sourceDirectory>
-                    <outputDirectory>target/unitTestReports/sampleReports_out</outputDirectory>
+                    <outputDirectory>target/unitTestReports/sampleReportsAdditProps_out</outputDirectory>
                     <additionalProperties>
                         <net.sf.jasperreports.awt.ignore.missing.font>true
                         </net.sf.jasperreports.awt.ignore.missing.font>

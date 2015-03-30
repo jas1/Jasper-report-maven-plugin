@@ -82,7 +82,7 @@ public class JasperReportTest extends AbstractMojoTestCase {
 	public void testGivenAdditionalPropertiesAreSetWhenTestingValidReportGenerationExpectNoErrorOnCompilation()
 			throws Exception {
 		String pluginPom = getBasedir() + "/src/test/resources/testSampleReportsWithAdditionalPropertiesPom.xml";
-		setupSourceAndDestinationFolder("/sampleReports", "/sampleReports_out");
+		setupSourceAndDestinationFolder("/sampleReports", "/sampleReportsAdditProps_out");
 
 		getAndExecuteMojo(pluginPom);
 		String defaultPdfFontName = DefaultJasperReportsContext.getInstance()
